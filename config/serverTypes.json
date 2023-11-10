@@ -1,11 +1,19 @@
 {
-  "Backend": {
-    "command": "echo \"This is a command set for Backend servers.\""
-  },
-  "Frontend": {
-    "command": "systemctl status httpd"
-  },
-  "Directory": {
-    "command": "echo \"This is a command set for Directory servers.\""
-  }
+  "ServerTypes": [
+    {
+      "name": "Backend",
+      "method": "SSH",
+      "command": "echo \"This is a command set for Backend servers.\""
+    },
+    {
+      "name": "Frontend",
+      "method": "SSH",
+      "command": "systemctl status httpd"
+    },
+    {
+      "name": "Directory",
+      "method": "SSH",
+      "command": "echo \"This is a command set for Directory servers.\""
+    }
+  ]
 }
