@@ -1,11 +1,6 @@
 package ovh.rid.asn.iam;
 
-import com.google.gson.Gson;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class HealthCheck {
     public static void main(String[] args) throws IOException {
@@ -16,19 +11,26 @@ public class HealthCheck {
 //        System.out.println(cbea.runCommand("pwd"));
 
 
-        // Test obsługi plików
-//        FileOutputStream outputStream = null;
-//        try {
-//            outputStream = new FileOutputStream("test.txt");
-//            outputStream.write("test".getBytes());
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e);
-//        } finally {
-//            outputStream.close();
+        // Json (Gson) parsing
+//        InputStream inStream = new FileInputStream("config/serverTypes.json");
+//        String jsonString = IOUtils.toString(inStream, StandardCharsets.UTF_8);
+//
+//        JsonObject jsonObject = new Gson().fromJson(jsonString, JsonObject.class);
+//        JsonArray jsonArray = jsonObject.getAsJsonArray("ServerTypes");
+//
+//        Gson gson = new Gson();
+//        ServerType[] serverTypes = gson.fromJson(jsonArray, ServerType[].class);
+//
+//        for(ServerType st : serverTypes) {
+//            System.out.printf("%s %s %s", st.name, st.method, st.command);
 //        }
 
-        // Json (Gson) parsing
-        InputStream jsonConfig = new FileInputStream("config/serverTypes.json");
+        ConfigParser config = new ConfigParser("config/serverTypes.json");
+
+        // Iteracja po obiektach z pliku json
+        for (ServerType srvType : config.getServerTypesArray()) {
+            System.out.printf("%s\t%s\t%s\n", srvType.name, srvType.method, srvType.command);
+        }
 
     }
 }
