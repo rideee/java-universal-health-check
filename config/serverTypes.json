@@ -1,0 +1,11 @@
+{
+  "Backend": {
+    "command": "echo \"This is a command set for Backend servers.\""
+  },
+  "Frontend": {
+    "command": "systemctl status httpd"
+  },
+  "Directory": {
+    "command": "echo \"This is a command set for Directory servers.\""
+  }
+}
