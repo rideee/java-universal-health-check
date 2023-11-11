@@ -30,4 +30,47 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <!-- Manifest -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <packageName>ovh.rid.asn.iam</packageName>
+                        </manifest>
+                        <manifestEntries>
+                            <Created-By>Michał Kątnik (github.com/rideee)</Created-By>
+                            <Main-Class>ovh.rid.asn.iam.HealthCheck</Main-Class>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- All dependencies to single JAR -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>ovh.rid.asn.iam.HealthCheck</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
