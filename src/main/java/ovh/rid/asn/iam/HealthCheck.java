@@ -16,7 +16,7 @@ public class HealthCheck {
             configDir = args[0];
         }
 
-        String configServerTypesFile = String.format("%s/%s", configDir, "serverTypes.json");
+        String configServerTypesFile = String.format("%s/%s", configDir, "servers.json");
 
         ConfigParser config = new ConfigParser(configServerTypesFile);
 

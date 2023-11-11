@@ -1,4 +1,0 @@
-Name,Type,IP,Username,Password,Key
-BE1,Backend,192.168.1.200,rid,null,/Users/rid/.ssh/id_rsa
-FE1,Frontend,192.168.1.200,rid,null,/Users/rid/.ssh/id_rsa
-DS1,Directory,192.168.1.200,rid,null,/Users/rid/.ssh/id_rsa
