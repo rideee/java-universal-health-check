@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigParser {
     public String configFile;
@@ -16,6 +18,9 @@ public class ConfigParser {
     public InputStream inputStream;
 
     private ServerType[] serverTypesArray;
+
+
+    private Map<String, ServerType> serverTypesMap;
 
     public ConfigParser(String configFile) throws IOException {
         this.configFile = configFile;
@@ -32,9 +37,20 @@ public class ConfigParser {
 
         Gson gson = new Gson();
         this.serverTypesArray = gson.fromJson(jsonArray, ServerType[].class);
+
+        // Array to Map
+        Map<String, ServerType> stMap = new HashMap<String, ServerType>();
+
+        for (ServerType srvType : this.serverTypesArray) {
+            stMap.put(srvType.name, srvType);
+        }
+
+        this.serverTypesMap = stMap;
     }
 
     public ServerType[] getServerTypesArray() {
-        return serverTypesArray;
+        return this.serverTypesArray;
     }
+
+    public Map<String, ServerType> getServerTypesMap() { return this.serverTypesMap; }
 }
