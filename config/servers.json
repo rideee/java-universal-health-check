@@ -23,8 +23,9 @@
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
-      "password": "null",
-      "key": "/Users/rid/.ssh/id_rsa"
+      "password": "",
+      "key": "/Users/rid/.ssh/id_rsa",
+      "passphrase": ""
     },
     {
       "name": "FE1",
@@ -32,8 +33,9 @@
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
-      "password": "null",
-      "key": "/Users/rid/.ssh/id_rsa"
+      "password": "",
+      "key": "/Users/rid/.ssh/id_rsa",
+      "passphrase": ""
     },
     {
       "name": "DS1",
@@ -41,8 +43,9 @@
       "ip": "192.168.1.200",
       "port": "22",
       "username": "rid",
-      "password": "null",
-      "key": "/Users/rid/.ssh/id_rsa"
+      "password": "",
+      "key": "/Users/rid/.ssh/id_rsa",
+      "passphrase": ""
     }
   ]
 }

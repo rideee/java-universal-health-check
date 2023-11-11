@@ -13,39 +13,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigParser {
-    public String configFile;
-    public String jsonString;
-    public InputStream inputStream;
-
+    private final String serversJsonString;
+    private final String serversConfigFile;
     private ServerType[] serverTypesArray;
-
-
     private Map<String, ServerType> serverTypesMap;
+    private Server[] serversArray;
 
-    public ConfigParser(String configFile) throws IOException {
-        this.configFile = configFile;
+    public ConfigParser(String serversConfigFile) throws IOException {
+        this.serversConfigFile = serversConfigFile;
 
-        this.inputStream = new FileInputStream(configFile);
-        this.jsonString = IOUtils.toString(this.inputStream, StandardCharsets.UTF_8);
+        InputStream serversFileInputStream = new FileInputStream(serversConfigFile);
+        this.serversJsonString = IOUtils.toString(serversFileInputStream, StandardCharsets.UTF_8);
 
         this.parseServerTypes();
+        this.parseServers();
     }
 
-    private void parseServerTypes() {
-        JsonObject jsonObject = new Gson().fromJson(jsonString, JsonObject.class);
-        JsonArray jsonArray = jsonObject.getAsJsonArray("ServerTypes");
-
-        Gson gson = new Gson();
-        this.serverTypesArray = gson.fromJson(jsonArray, ServerType[].class);
-
-        // Array to Map
-        Map<String, ServerType> stMap = new HashMap<String, ServerType>();
-
-        for (ServerType srvType : this.serverTypesArray) {
-            stMap.put(srvType.name, srvType);
-        }
-
-        this.serverTypesMap = stMap;
+    public String getServersConfigFileLocation() {
+        return serversConfigFile;
     }
 
     public ServerType[] getServerTypesArray() {
@@ -55,4 +40,35 @@ public class ConfigParser {
     public Map<String, ServerType> getServerTypesMap() {
         return this.serverTypesMap;
     }
+
+    public Server[] getServersArray() {
+        return this.serversArray;
+    }
+
+    private void parseServerTypes() {
+        JsonObject jsonObject = new Gson().fromJson(serversJsonString, JsonObject.class);
+        JsonArray jsonArray = jsonObject.getAsJsonArray("ServerTypes");
+
+        Gson gson = new Gson();
+        this.serverTypesArray = gson.fromJson(jsonArray, ServerType[].class);
+
+        // Array to Map
+        HashMap<String, ServerType> stMap = new HashMap<>();
+
+        for (ServerType srvType : this.serverTypesArray) {
+            stMap.put(srvType.name, srvType);
+        }
+
+        this.serverTypesMap = stMap;
+    }
+
+
+    private void parseServers() {
+        JsonObject jsonObject = new Gson().fromJson(serversJsonString, JsonObject.class);
+        JsonArray jsonArray = jsonObject.getAsJsonArray("Servers");
+
+        Gson gson = new Gson();
+        this.serversArray = gson.fromJson(jsonArray, Server[].class);
+    }
+
 }
