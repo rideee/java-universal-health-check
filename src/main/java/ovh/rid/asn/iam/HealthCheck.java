@@ -1,7 +1,6 @@
 package ovh.rid.asn.iam;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class HealthCheck {
     public static void main(String[] args) throws IOException {
@@ -11,25 +10,20 @@ public class HealthCheck {
 //        SSHConnection cbea = new SSHConnection("192.168.1.200", 22, "rid", "test123456");
 //        System.out.println(cbea.runCommand("pwd"));
 
+        String configDir = "./config";
 
-        ConfigParser config = new ConfigParser("./config/serverTypes.json");
+        if (args.length != 0) {
+            configDir = args[0];
+        }
 
-//        // Json2Array - iteration
-//        for (ServerType srvType : config.getServerTypesArray()) {
-//            System.out.printf("%s\t%s\t%s\n", srvType.name, srvType.method, srvType.command);
-//        }
+        String configServerTypesFile = String.format("%s/%s", configDir, "serverTypes.json");
 
-        // check if server type exists
-        Map<String, ServerType> serverTypesMap = config.getServerTypesMap();
+        ConfigParser config = new ConfigParser(configServerTypesFile);
 
         String serverType = "Backend";
-
         ServerType st = config.getServerTypesMap().get(serverType);
 
-        System.out.printf("Server Type: %s\nConnection Method: %s\nCommand to run: %s\n",
-                st.name, st.method, st.command);
-
-
+        System.out.printf("Server Type: %s\nConnection Method: %s\nCommand to run: %s\n", st.name, st.method, st.command);
 
     }
 }

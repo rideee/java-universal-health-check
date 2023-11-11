@@ -52,5 +52,7 @@ public class ConfigParser {
         return this.serverTypesArray;
     }
 
-    public Map<String, ServerType> getServerTypesMap() { return this.serverTypesMap; }
+    public Map<String, ServerType> getServerTypesMap() {
+        return this.serverTypesMap;
+    }
 }
