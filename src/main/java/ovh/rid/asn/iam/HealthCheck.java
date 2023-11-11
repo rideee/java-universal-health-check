@@ -1,6 +1,7 @@
 package ovh.rid.asn.iam;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class HealthCheck {
     public static void main(String[] args) throws IOException {
@@ -11,26 +12,24 @@ public class HealthCheck {
 //        System.out.println(cbea.runCommand("pwd"));
 
 
-        // Json (Gson) parsing
-//        InputStream inStream = new FileInputStream("config/serverTypes.json");
-//        String jsonString = IOUtils.toString(inStream, StandardCharsets.UTF_8);
-//
-//        JsonObject jsonObject = new Gson().fromJson(jsonString, JsonObject.class);
-//        JsonArray jsonArray = jsonObject.getAsJsonArray("ServerTypes");
-//
-//        Gson gson = new Gson();
-//        ServerType[] serverTypes = gson.fromJson(jsonArray, ServerType[].class);
-//
-//        for(ServerType st : serverTypes) {
-//            System.out.printf("%s %s %s", st.name, st.method, st.command);
+        ConfigParser config = new ConfigParser("./config/serverTypes.json");
+
+//        // Json2Array - iteration
+//        for (ServerType srvType : config.getServerTypesArray()) {
+//            System.out.printf("%s\t%s\t%s\n", srvType.name, srvType.method, srvType.command);
 //        }
 
-        ConfigParser config = new ConfigParser("config/serverTypes.json");
+        // check if server type exists
+        Map<String, ServerType> serverTypesMap = config.getServerTypesMap();
 
-        // Iteracja po obiektach z pliku json
-        for (ServerType srvType : config.getServerTypesArray()) {
-            System.out.printf("%s\t%s\t%s\n", srvType.name, srvType.method, srvType.command);
-        }
+        String serverType = "Backend";
+
+        ServerType st = config.getServerTypesMap().get(serverType);
+
+        System.out.printf("Server Type: %s\nConnection Method: %s\nCommand to run: %s\n",
+                st.name, st.method, st.command);
+
+
 
     }
 }
